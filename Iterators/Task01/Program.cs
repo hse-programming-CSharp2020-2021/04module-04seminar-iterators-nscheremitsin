@@ -43,7 +43,7 @@ namespace Task01
             var prev = 1;
             var curr = 1;
 
-            while (prev < maxValue)
+            while (prev <= maxValue)
             {
                 yield return prev;
                 var temp = prev;
