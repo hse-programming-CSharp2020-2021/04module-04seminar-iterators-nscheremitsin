@@ -60,6 +60,8 @@ namespace Task03
                 foreach (Person p in peopleList)
                     Console.WriteLine(p);
 
+                Console.WriteLine();
+
                 foreach (Person p in peopleList.GetPeople)
                     Console.WriteLine(p);
             }
