@@ -100,7 +100,7 @@ namespace Task05
         }
 
 
-        public object Current { get => (int)Math.Pow(current, 10); }
+        public object Current { get => (long)Math.Pow(current, 10); }
 
 
         public void Reset()
@@ -114,6 +114,7 @@ namespace Task05
             else
             {
                 current = value;
+
             }
         }
     }
