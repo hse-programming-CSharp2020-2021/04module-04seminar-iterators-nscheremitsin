@@ -26,7 +26,6 @@ namespace Task04
     {
         static void Main(string[] args)
         {
-            CultureInfo.CurrentCulture = new CultureInfo("ru-RU");
             try
             {
                 if (!int.TryParse(Console.ReadLine(), out int value) || value <= 0)
@@ -49,9 +48,15 @@ namespace Task04
 
         static void IterateThroughEnumeratorWithoutUsingForeach(IEnumerator enumerator)
         {
-            while (enumerator.MoveNext())
+            while (true)
             {
-                Console.Write($"{enumerator.Current} ");
+                Console.Write($"{enumerator.Current}");
+
+                if (!enumerator.MoveNext())
+                {
+                    return;
+                }
+                Console.Write(" ");
             }
         }
     }
@@ -59,7 +64,7 @@ namespace Task04
 
     class MyInts : IEnumerator // НЕ МЕНЯТЬ ЭТУ СТРОКУ
     {
-        private int current = 0;
+        private int current = 1;
         private int value;
 
 
@@ -87,7 +92,7 @@ namespace Task04
 
         public void Reset()
         {
-            current = 0;
+            current = 1;
         }
     }
 }
