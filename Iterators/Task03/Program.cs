@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Globalization;
 
 /* На вход подается число N.
  * На каждой из следующих N строках записаны ФИО человека, 
