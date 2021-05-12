@@ -70,7 +70,7 @@ namespace Task02
             try
             {
                 int startingIndex = int.Parse(Console.ReadLine());
-                string[] values = Console.ReadLine().Split();
+                string[] values = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
                 if (startingIndex <= 0 || startingIndex > values.Length)
                 {
