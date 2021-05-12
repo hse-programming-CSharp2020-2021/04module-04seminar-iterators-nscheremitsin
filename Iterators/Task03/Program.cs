@@ -29,6 +29,7 @@ using System.Collections;
  * 
  * В случае ввода некорректных данных выбрасывайте ArgumentException.
 */
+
 namespace Task03
 {
     class Program
@@ -37,8 +38,22 @@ namespace Task03
         {
             try
             {
-                int N =
+                if (!int.TryParse(Console.ReadLine(), out int N) || N <= 0)
+                {
+                    throw new ArgumentException();
+                }
+
                 Person[] people = new Person[N];
+
+                for (int i = 0; i < N; i++)
+                {
+                    var words = Console.ReadLine().Split();
+                    if (words.Length < 2)
+                    {
+                        throw new ArgumentException();
+                    }
+                    people[i] = new Person(words[0], words[1]);
+                }
 
                 People peopleList = new People(people);
 
@@ -55,62 +70,80 @@ namespace Task03
         }
     }
 
+
+
     public class Person
     {
         public string firstName;
         public string lastName;
 
-        public Person(string firstName, string lastName)
+        public Person(string lastName, string firstName)
         {
             this.firstName = firstName;
             this.lastName = lastName;
         }
 
-    
+        public override string ToString() => $"{char.ToUpper(lastName[0])}{lastName.Substring(1, lastName.Length - 1)} {char.ToUpper(firstName[0])}.";
     }
+
 
 
     public class People : IEnumerable
     {
-        private Person[] _people;
-        public Person[] GetPeople
+        private Person[] people;
+        public Person[] GetPeople { get => people; }
+
+
+        public People(Person[] people)
         {
-            get {
-                return _people;
-            }
+            this.people = people;
         }
-        
+
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
+
         public PeopleEnum GetEnumerator()
         {
-            return new PeopleEnum(_people);
+            return new PeopleEnum((Person[])people.Clone());
         }
     }
-    
+
+
+
     public class PeopleEnum : IEnumerator
     {
-        public Person[] _people;
+        private Person[] people;
+        private int position = -1;
 
-      
+
+        public PeopleEnum(Person[] people)
+        {
+            Array.Sort(people, (x, y) => x.lastName.CompareTo(y.lastName));
+            this.people = people;
+        }
+
 
         public bool MoveNext()
         {
-            
+            if (position < people.Length - 1)
+            {
+                position++;
+                return true;
+            }
+            return false;
         }
+
 
         public void Reset()
         {
-            
+            position = -1;
         }
        
 
-        public Person Current
-        {
-            
-        }
+        public object Current { get => people[position]; }
     }
 }
