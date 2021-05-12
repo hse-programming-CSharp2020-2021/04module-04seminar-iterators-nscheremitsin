@@ -129,7 +129,17 @@ namespace Task03
 
         public PeopleEnum(Person[] people)
         {
-            Array.Sort(people, (x, y) => x.lastName.CompareTo(y.lastName));
+            Array.Sort(people, (x, y) =>
+            {
+                var comparison = x.lastName.CompareTo(y.lastName);
+
+                if (comparison == 0)
+                {
+                    return x.firstName.CompareTo(y.firstName);
+                }
+                return comparison;
+            });
+
             this.people = people;
         }
 
