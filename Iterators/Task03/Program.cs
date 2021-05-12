@@ -36,6 +36,7 @@ namespace Task03
     {
         static void Main(string[] args)
         {
+            CultureInfo.CurrentCulture = new CultureInfo("ru-RU");
             try
             {
                 if (!int.TryParse(Console.ReadLine(), out int N) || N <= 0)

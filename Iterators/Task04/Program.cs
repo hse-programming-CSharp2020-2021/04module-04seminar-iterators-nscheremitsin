@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Globalization;
 
 /* На вход подается число N.
  * Нужно создать коллекцию из N квадратов последовательного ряда натуральных чисел 
@@ -25,6 +26,7 @@ namespace Task04
     {
         static void Main(string[] args)
         {
+            CultureInfo.CurrentCulture = new CultureInfo("ru-RU");
             try
             {
                 if (!int.TryParse(Console.ReadLine(), out int value) || value <= 0)
