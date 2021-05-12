@@ -30,6 +30,10 @@ namespace Task05
         {
             try
             {
+                if (!int.TryParse(Console.ReadLine(), out int value) || value <= 0)
+                {
+                    throw new ArgumentException();
+                }
                 MyDigits myDigits = new MyDigits();
                 IEnumerator enumerator = myDigits.MyEnumerator(value);
 
@@ -51,16 +55,66 @@ namespace Task05
 
         static void IterateThroughEnumeratorWithoutUsingForeach(IEnumerator enumerator)
         {
+            while (true)
+            {
+                Console.Write(enumerator.Current);
+
+                if (!enumerator.MoveNext())
+                {
+                    return;
+                }
+                Console.Write(" ");
+            }
         }
     }
 
+
     class MyDigits : IEnumerator // НЕ МЕНЯТЬ ЭТУ СТРОКУ
     {
+        private int value;
+        private int current = 1;
+        private bool isAscending = true;
+
+
+        public IEnumerator MyEnumerator(int value)
+        {
+            this.value = value;
+            return this;
+        }
+
 
         public bool MoveNext()
         {
-           
+            if (isAscending && current < value)
+            {
+                current++;
+                return true;
+            }
+            else if (!isAscending && current > 1)
+            {
+                current--;
+                return true;
+            }
+            Reset();
+            return false;
         }
 
+
+        public object Current { get => (int)Math.Pow(current, 10); }
+
+
+        public void Reset()
+        {
+            isAscending = !isAscending;
+
+            if (isAscending)
+            {
+                current = 1;
+            }
+            else
+            {
+                current = value;
+            }
+        }
     }
 }
